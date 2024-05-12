@@ -1,16 +1,3 @@
-CREATE TABLE tutor (
-    id SERIAL PRIMARY KEY,
-    nome TEXT,
-    pais TEXT,
-    foto_de_perfil BIT
-);
-
-CREATE TABLE grupo (
-    id SERIAL PRIMARY KEY,
-    nome TEXT,
-    media_de_felicidade DECIMAL
-);
-
 CREATE TABLE tarefas (
     id SERIAL PRIMARY KEY,
     titulo TEXT,
@@ -18,25 +5,58 @@ CREATE TABLE tarefas (
     prazo_final DATE
 );
 
+CREATE TABLE tutor (
+    id SERIAL PRIMARY KEY,
+    nome TEXT,
+    pais TEXT,
+    foto_de_perfil BYTEA
+);
+
+CREATE TABLE grupo (
+    id SERIAL PRIMARY KEY,
+    nome TEXT,
+    media_de_felicidade DECIMAL,
+    id_tutor INTEGER REFERENCES tutor(id)
+);
+
+CREATE TABLE perfil_comportamental (
+    id SERIAL PRIMARY KEY,
+    id_respostas INTEGER REFERENCES respostas(id),
+    desc_perfil TEXT
+);
+
+CREATE TABLE respostas (
+    id SERIAL PRIMARY KEY,
+    id_alternativa INTEGER REFERENCES alternativa(id),
+    id_pergunta INTEGER REFERENCES pergunta(id)
+);
+
+CREATE TABLE pergunta (
+    id SERIAL PRIMARY KEY,
+    texto TEXT,
+    id_questionario INTEGER REFERENCES questionario(id)
+);
+
+CREATE TABLE questionario (
+    id SERIAL PRIMARY KEY,
+    tipo_de_questionario INTEGER,
+    id_tarefas INTEGER REFERENCES tarefas(id)
+);
+
+CREATE TABLE alternativa (
+    id SERIAL PRIMARY KEY,
+    texto TEXT,
+    id_pergunta INTEGER REFERENCES pergunta(id)
+);
+
 CREATE TABLE estudante (
     id SERIAL PRIMARY KEY,
     nome TEXT,
-    foto_de_perfil INTEGER,
+    foto_de_perfil BYTEA,
     pais TEXT,
     indice_de_felicidade INTEGER,
-    perfil_de_lideranca TEXT
-);
-
-CREATE TABLE estudante_grupo (
-    id SERIAL PRIMARY KEY,
-    id_estudante INTEGER REFERENCES estudante(id),
-    id_grupo INTEGER REFERENCES grupo(id)
-);
-
-CREATE TABLE tutor_grupo (
-    id SERIAL PRIMARY KEY,
-    id_tutor INTEGER REFERENCES tutor(id),
-    id_grupo INTEGER REFERENCES grupo(id)
+    id_grupo INTEGER REFERENCES grupo(id),
+    id_perfil_comportamental INTEGER REFERENCES perfil_comportamental(id)
 );
 
 CREATE TABLE estudante_tarefa (
@@ -44,4 +64,3 @@ CREATE TABLE estudante_tarefa (
     id_tarefas INTEGER REFERENCES tarefas(id),
     id_estudante INTEGER REFERENCES estudante(id)
 );
-

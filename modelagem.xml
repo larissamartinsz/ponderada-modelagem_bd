@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="205" y="312" name="grupo">
+</datatypes><table x="506" y="229" name="grupo">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -47,11 +47,15 @@
 <row name="media_de_felicidade" null="1" autoincrement="0">
 <datatype>DECIMAL</datatype>
 <default>NULL</default></row>
+<row name="id_tutor" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="tutor" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="720" y="212" name="estudante">
+<table x="675" y="347" name="estudante">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -59,7 +63,7 @@
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
 <row name="foto_de_perfil" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
+<datatype>BLOB</datatype>
 <default>NULL</default></row>
 <row name="pais" null="1" autoincrement="0">
 <datatype>MEDIUMTEXT</datatype>
@@ -67,46 +71,19 @@
 <row name="indice_de_felicidade" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="perfil_de_lideranca" null="1" autoincrement="0">
-<datatype>MEDIUMTEXT</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="452" y="240" name="estudante_grupo">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_estudante" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="estudante" row="id" />
-</row>
 <row name="id_grupo" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="grupo" row="id" />
 </row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="174" y="16" name="tutor_grupo">
-<row name="id" null="1" autoincrement="1">
+<row name="id_perfil_comportamental" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_tutor" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="tutor" row="id" />
-</row>
-<row name="id_grupo" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="grupo" row="id" />
+<default>NULL</default><relation table="perfil_comportamental" row="id" />
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="374" y="15" name="tutor">
+<table x="509" y="67" name="tutor">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -117,13 +94,13 @@
 <datatype>MEDIUMTEXT</datatype>
 <default>NULL</default></row>
 <row name="foto_de_perfil" null="1" autoincrement="0">
-<datatype>bit</datatype>
+<datatype>BLOB</datatype>
 <default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="963" y="60" name="tarefas">
+<table x="918" y="24" name="tarefas">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -140,7 +117,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="716" y="46" name="estudante_tarefa">
+<table x="688" y="137" name="estudante_tarefa">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -152,6 +129,82 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="estudante" row="id" />
 </row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1159" y="23.333333015441895" name="questionario">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="tipo_de_questionário" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_tarefas" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="tarefas" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1122.3333129882812" y="309.33333587646484" name="alternativa">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="texto" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="id_pergunta" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pergunta" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="1190.3333740234375" y="172" name="pergunta">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="texto" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
+<row name="id_questionario" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="questionario" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="941" y="248" name="respostas">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_alternativa" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="alternativa" row="id" />
+</row>
+<row name="id_pergunta" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="pergunta" row="id" />
+</row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="928.3333435058594" y="440" name="perfil_comportamental">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_respostas" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="respostas" row="id" />
+</row>
+<row name="desc_perfil" null="1" autoincrement="0">
+<datatype>MEDIUMTEXT</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
